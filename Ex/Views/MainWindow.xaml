@@ -1,0 +1,53 @@
+﻿<Window x:Class="Ex.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ex.Views"
+        xmlns:vm="clr-namespace:Ex.ViewsModels"
+        d:DataContext="{d:DesignInstance vm:VM_MainWindow}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="723.912" Width="800">
+    <StackPanel>
+        <StackPanel HorizontalAlignment="Left" Margin="5" Width="500" Orientation="Horizontal">
+        <StackPanel HorizontalAlignment="Center">
+        <ComboBox  SelectedItem="{Binding curren_customers}" ItemsSource="{Binding customers}" SelectedIndex="0" DisplayMemberPath="cust_name"  Margin="5"></ComboBox>
+        <DataGrid  Height="237" ItemsSource="{Binding curren_customers.Orders}" SelectedItem="{Binding curren_order}" SelectedIndex="0"  IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding order_num}" Header="Номер заказа" />
+                <DataGridTextColumn Binding="{Binding order_date}" Header="Дата заказа"  />
+            </DataGrid.Columns>
+        </DataGrid>
+        </StackPanel>
+            <StackPanel HorizontalAlignment="Center">
+                <Label Content="Заказчик"/>
+                <TextBlock HorizontalAlignment="Center" Margin="5" Text="{Binding curren_customers.cust_name}"/>
+                <Label Content="Контактное лицо"/>
+                <TextBlock HorizontalAlignment="Center" Margin="5" Text="{Binding curren_customers.cust_contact}"/>
+                <Label Content="Страна"/>
+                <TextBlock HorizontalAlignment="Center" Margin="5" Text="{Binding curren_customers.cust_country}"/>
+                <Label Content="Город"/>
+                <TextBlock HorizontalAlignment="Center" Margin="5" Text="{Binding curren_customers.cust_city}"/>
+                <Label Content="Адрес"/>
+                <TextBlock HorizontalAlignment="Center" Margin="5" Text="{Binding curren_customers.cust_address}"/>
+            </StackPanel>
+        </StackPanel>
+        <DataGrid HorizontalAlignment="Left" SelectedIndex="0" Height="300" ItemsSource="{Binding curren_order.OrderItems}"    IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False"  Margin="5,5,5,5" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="100" Binding="{Binding Product.prod_name}" Header="Название продукта" />
+                <DataGridTextColumn Binding="{Binding quantity}" Header="Количество"  />
+                <DataGridTextColumn Binding="{Binding Product.prod_price}" Header="Цена" />
+                <DataGridTextColumn Binding="{Binding sum_item}" Header="Стоимость" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel HorizontalAlignment="Left" Margin="5" Orientation="Horizontal">
+        <Label Content="Сумма заказа" HorizontalAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Center" Margin="5" Text="{Binding curren_order.sum_order}"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Margin="5" Orientation="Horizontal">
+            <Button Content="Excel" Margin="5" Padding="5" Command="{Binding excel}"/>
+            <Button Content="PDF" Margin="5" Padding="5" Command="{Binding pdf}"/>
+            <Button Content="Json" Margin="5" Padding="5" Command="{Binding json}"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
